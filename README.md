@@ -5,7 +5,7 @@ Diffusion models 논문 요약
 1. **DDPM (Denoising Diffusion Probabilistic Models)**   [paper](https://arxiv.org/abs/2006.11239)  
    - assumption : gaussian noise, markov process, $\Sigma_{\theta} = \sigma_t^2 \mathbf{I}$  
    - objective function : variational bound 중 $L_{1:T-1}$ term, $L_simple$ 을 optimizing 하는 것과 유사
-     $$\( L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left\| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right\|^2 \right] \)$$
+     $$L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left\| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right\|^2 \right]$$
 
    - goal : forward process가 given 일 때 reverse process $\mu^{\tilde}_{t}$, $\Sigma^{\tilde}_{t}$ fitting를 $\mu_{\theta}$, $\Sigma_{\theta}$ fitting  
             이 때 $\Sigma_{\theta}$ 는 fixed(not training)
