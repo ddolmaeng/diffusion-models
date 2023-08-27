@@ -5,7 +5,7 @@ Diffusion models 논문 요약
 1. **DDPM (Denoising Diffusion Probabilistic Models)**   [paper](https://arxiv.org/abs/2006.11239)  
    - assumption : gaussian noise, markovian process, $\Sigma_{\theta} = \sigma_t^2 \mathbf{I}$  
    - objective function : variational bound 중 $L_{1:T-1}$ term -> $L_simple$ 을 optimizing 하는 것과 유사
-   - $$L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left\| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right\|^2 \right]$$
+   - $L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left\| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right\|^2 \right]$
 
    - goal : forward process가 given 일 때 reverse process $\mu^{\tilde}_{t}$, $\Sigma^{\tilde}_{t}$ fitting를 $\mu_{\theta}$, $\Sigma_{\theta}$ fitting; 이 때 $\Sigma_{\theta}$ 는 fixed(not training)
    - 해결한 문제 : training 할 때는 $x_0$의 정보를 사용하나 sampling 할 때는 $x_0$의 정보를 사용하지 않는다. $x_t$를 통해 $x_0$를 추정해야 한다. gaussain noise가 iid 이기 때문에 $x_t$와 $\epsilon$ 을 안다면 $x_0$를 추정할 수 있다.
@@ -35,7 +35,7 @@ Diffusion models 논문 요약
    - goal : assumption(non-markovian) 변경을 통한 DDPM 가속화(적은 step으로도 학습 가능하게)
    - 가속화 하는 법 : 병렬 처리가 가능한 구조 ($x_{t-1}$이 $x_{t}$에 cascade하지 않게, 바꿔서 말하면 deterministic 하게)
    - Assumption
-     $q_{\sigma}(X_{1:T}|X_0) = q_{\sigma}(X_1|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t}|X_{t-1}, X_0) = q_{\sigma} (X_T|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t-1}|X_{t}, X_0)$
+   - $q_{\sigma}(X_{1:T}|X_0) = q_{\sigma}(X_1|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t}|X_{t-1}, X_0) = q_{\sigma} (X_T|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t-1}|X_{t}, X_0)$
    - $q_{\sigma} (X_{t-1}|X_{t}, X_0)$ is gaussian (이 때 mu 는 DDPM과 똑같은 세팅, 그리고 여기서 variance를 0으로 만들어준다면 deterministic한 결과를 얻을 수 있음, DDPM과 똑같은 variance를 넣는 것도 가)
 
    - Question : 그러면 왜 deterministic한 result를 얻기 위해서는 왜 non-markovian process를 사용하여야하는가?
