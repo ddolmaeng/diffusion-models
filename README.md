@@ -35,8 +35,8 @@ Diffusion models 논문 요약
    - goal : assumption(non-markovian) 변경을 통한 DDPM 가속화(적은 step으로도 학습 가능하게)
    - 가속화 하는 법 : 병렬 처리가 가능한 구조 ($x_{t-1}$이 $x_{t}$에 cascade하지 않게, 바꿔서 말하면 deterministic 하게)
    - Assumption
-     q_{\sigma}(X_{1:T}|X_0) = q_{\sigma}(X_1|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t}|X_{t-1}, X_0) = q_{\sigma} (X_T|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t-1}|X_{t}, X_0)
-   - q_{\sigma} (X_{t-1}|X_{t}, X_0) is gaussian (이 때 mu 는 DDPM과 똑같은 세팅, 그리고 여기서 variance를 0으로 만들어준다면 deterministic한 결과를 얻을 수 있음, DDPM과 똑같은 variance를 넣는 것도 가)
+     $q_{\sigma}(X_{1:T}|X_0) = q_{\sigma}(X_1|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t}|X_{t-1}, X_0) = q_{\sigma} (X_T|X_0) \Pi_{t=2}^{T} q_{\sigma} (X_{t-1}|X_{t}, X_0)$
+   - $q_{\sigma} (X_{t-1}|X_{t}, X_0)$ is gaussian (이 때 mu 는 DDPM과 똑같은 세팅, 그리고 여기서 variance를 0으로 만들어준다면 deterministic한 결과를 얻을 수 있음, DDPM과 똑같은 variance를 넣는 것도 가)
 
    - Question : 그러면 왜 deterministic한 result를 얻기 위해서는 왜 non-markovian process를 사용하여야하는가?
    - Answer : markovian process를 가정하면 $q(x_{t-1}|x_t, x_0)$ 의 분산을 0으로 컨트롤 할 수 없다. 이 때 분산을 0으로 만들어주기 위해서는 $\alpha_t$ 를 1로 만들어야하는데 이 의미는 forward process에서 어떠한 noise도 더하지 않겠다는 의미
