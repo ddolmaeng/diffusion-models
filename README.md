@@ -44,3 +44,4 @@ Diffusion models 논문 요약
    - sampling acceleration : sampling 과정에서 sub-sequecne를 이용하게 하면 적은 step으로도 sampling 가능
 
 4. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
+   - goal : 
