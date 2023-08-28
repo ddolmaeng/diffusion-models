@@ -1,5 +1,3 @@
-![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/54d57f98-5821-482b-9d29-04909cece1d6)# diffusion-models
-
 Diffusion models 논문 요약
 
 1. **DDPM (Denoising Diffusion Probabilistic Models)**   [paper](https://arxiv.org/abs/2006.11239)  
