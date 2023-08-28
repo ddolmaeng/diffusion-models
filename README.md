@@ -1,4 +1,4 @@
-# diffusion-models
+![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/54d57f98-5821-482b-9d29-04909cece1d6)# diffusion-models
 
 Diffusion models 논문 요약
 
@@ -43,5 +43,50 @@ Diffusion models 논문 요약
 
    - sampling acceleration : sampling 과정에서 sub-sequecne를 이용하게 하면 적은 step으로도 sampling 가능
 
-4. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
+
+4. **Generative Modeling by Estimating Gradients of the Data Distribution**   [paper](https://arxiv.org/abs/1907.05600)
+   - goal : reverse SDE에서 유도된 $\nabla_x \log p(x)$ 를 효과적으로 score matching 시키는 방법
+   - advantage : no adversarial training, no surrogate losses, no sampling from the score network during training
+   - Score matching for score estimation : 효과적인 방식으로 $s_{\theta}(x) \sim \nabla_x \log p(x)$ 예측
+      - trace based : $tr(\nabla_x s_{theta}(x))$ 이용; 하지만 high demensional data 일 때 $tr(\nable_x s_{theta}(x))$를 구하는 것은 힘들다
+      - sliced score matching : $tr(\nable_x s_{theta}(x))$ 대신 $v^t \nabla_x s_{\theta}(x) v$ 이용 (v : multivariate standard normal vector); 직접 trace에 접근하지 않아도 되어 efficient
+
+   - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nalba_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta} (x)$를 $\nabla_x \log p(x)$ 대신 사용
+
+   - Problem (Vanilla Sampling with Langevin dynamics)
+      - under the manifold hypothesis, p_data가 존재하지 않는 x 에서 $s_theta(x)$가 정의되지 않음
+      - low data density 영역에서의 부정확
+      - mixture data distribution에 대한 분별능력 X
+         - e.g. $p_data = 0.2 \mathcal{N} ((0,0), I)) + 0.8  \mathcal{N} ((1,1), I))$ 라고 하면, 이상적인 경우 20%는 $\mathcal{N} ((0,0), I))$, 그리고 80%는 $\mathcal{N} ((1,1), I))$로 분류하기를 원함; 하지만, 임의의 점에서 시작한다면 거의 50:50으로 분류 (why? $\mathcal{N} ((0,0), I))$ 근방에서는 $(0,0)$ 방향으로 gradient가 끌어당기는 힘이 더 강하고, $\mathcal{N} ((1,1), I))$ 근방에서는 $(1,1)$ 방향으로 gradient가 끌어당기는 힘이 더 강하기 때문에)
+         - ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/c5c1866d-8cf8-4332-b75d-67202758a27c)
+
+
+   - Solution (perturbed data distribution)
+      - ${\sigma_i}^{L}_{i=1}$, $\frac{\simga_1}{\sigma_2} = \cdots = \frac{\sigma_{L-1}}{\sigma_L} > 1$ 을 만족하게 sequence 잡은 후
+      - $q_sigma(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) dt$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
+      - 대신 추정해야하는 $s_{\theta} (x)$ 도 더이상 $x$에만 영향을 받지 않고 $\sigma$에 영향을 받게 setting. $s_{\theta} (x, \sigma)$
+
+   - denoising score matching : $s_theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
+      - $\arg \min_{\theta} \Sigma_{t=1}^{T} \lambda(\sigma_t) \mathbb{E}_{q_{\sigma_t}} [\|s_{\theta}(x, t) - \nabla \log q_{\sigma_t} (x_t)\|_2^2]$
+      - $\lambda(\sigma_t)$ : coefficient, 논문에서는 $\lambda(\sigma) = \sigma^2$ 이용 (why? variance가 $\sigma^2 I$인 정규분포로 perturbed 했기 때문에 $\|s_{\theta} (x, \sigma)\|_2 \propto 1/{\sigma}$)
+
+   - algorithm
+      - ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/99cfb858-de57-464c-b165-861616a6170f)
+
+
+
+7. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
    - goal : 
+
+
+
+
+
+
+
+
+
+
+
+
+
