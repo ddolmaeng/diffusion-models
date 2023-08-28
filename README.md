@@ -61,7 +61,7 @@ Diffusion models 논문 요약
 
    - Solution (perturbed data distribution)
       - ${\sigma_i}^{L}_{i=1}$, $\frac{\simga_1}{\sigma_2} = \cdots = \frac{\sigma_{L-1}}{\sigma_L} > 1$ 을 만족하게 sequence 잡은 후
-      - $q_sigma(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) dt$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
+      - $q_{\sigma}(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) dt$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
       - 대신 추정해야하는 $s_{\theta} (x)$ 도 더이상 $x$에만 영향을 받지 않고 $\sigma$에 영향을 받게 setting. $s_{\theta} (x, \sigma)$
 
    - denoising score matching : $s_theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
