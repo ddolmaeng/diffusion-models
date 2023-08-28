@@ -52,7 +52,7 @@ Diffusion models 논문 요약
    - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nalba_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta} (x)$를 $\nabla_x \log p(x)$ 대신 사용
 
    - Problem (Vanilla Sampling with Langevin dynamics)
-      - under the manifold hypothesis, p_data가 존재하지 않는 x 에서 $s_theta(x)$가 정의되지 않음
+      - under the manifold hypothesis, p_data가 존재하지 않는 x 에서 $s_\theta(x)$가 정의되지 않음
       - low data density 영역에서의 부정확
       - mixture data distribution에 대한 분별능력 X
          - e.g. $p_data = 0.2 \mathcal{N} ((0,0), I)) + 0.8  \mathcal{N} ((1,1), I))$ 라고 하면, 이상적인 경우 20%는 $\mathcal{N} ((0,0), I))$, 그리고 80%는 $\mathcal{N} ((1,1), I))$로 분류하기를 원함; 하지만, 임의의 점에서 시작한다면 거의 50:50으로 분류 (why? $\mathcal{N} ((0,0), I))$ 근방에서는 $(0,0)$ 방향으로 gradient가 끌어당기는 힘이 더 강하고, $\mathcal{N} ((1,1), I))$ 근방에서는 $(1,1)$ 방향으로 gradient가 끌어당기는 힘이 더 강하기 때문에) <br />
@@ -64,7 +64,7 @@ Diffusion models 논문 요약
       - $q_{\sigma}(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) dt$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
       - 대신 추정해야하는 $s_{\theta} (x)$ 도 더이상 $x$에만 영향을 받지 않고 $\sigma$에 영향을 받게 setting. $s_{\theta} (x, \sigma)$
 
-   - denoising score matching : $s_theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
+   - denoising score matching : $s_\theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
       - $\arg \min_{\theta} \Sigma_{t=1}^{T} \lambda(\sigma_t) \mathbb{E}_{q_{\sigma_t}} [||s_{\theta}(x, t) - \nabla \log q_{\sigma_t} (x_t)||_2^2]$
       - $\lambda(\sigma_t)$ : coefficient, 논문에서는 $\lambda(\sigma) = \sigma^2$ 이용 (why? variance가 $\sigma^2 I$인 정규분포로 perturbed 했기 때문에 $||s_{\theta} (x, \sigma)||_2 \propto 1/{\sigma}$)
 
