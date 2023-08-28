@@ -56,6 +56,7 @@ Diffusion models 논문 요약
       - low data density 영역에서의 부정확
       - mixture data distribution에 대한 분별능력 X
          - e.g. $p_data = 0.2 \mathcal{N} ((0,0), I)) + 0.8  \mathcal{N} ((1,1), I))$ 라고 하면, 이상적인 경우 20%는 $\mathcal{N} ((0,0), I))$, 그리고 80%는 $\mathcal{N} ((1,1), I))$로 분류하기를 원함; 하지만, 임의의 점에서 시작한다면 거의 50:50으로 분류 (why? $\mathcal{N} ((0,0), I))$ 근방에서는 $(0,0)$ 방향으로 gradient가 끌어당기는 힘이 더 강하고, $\mathcal{N} ((1,1), I))$ 근방에서는 $(1,1)$ 방향으로 gradient가 끌어당기는 힘이 더 강하기 때문에)
+
            ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/c5c1866d-8cf8-4332-b75d-67202758a27c)
 
 
@@ -69,6 +70,7 @@ Diffusion models 논문 요약
       - $\lambda(\sigma_t)$ : coefficient, 논문에서는 $\lambda(\sigma) = \sigma^2$ 이용 (why? variance가 $\sigma^2 I$인 정규분포로 perturbed 했기 때문에 $\|s_{\theta} (x, \sigma)\|_2 \propto 1/{\sigma}$)
 
    - algorithm
+
      ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/99cfb858-de57-464c-b165-861616a6170f)
 
 
