@@ -3,7 +3,7 @@ Diffusion models 논문 요약
 1. **DDPM (Denoising Diffusion Probabilistic Models)**   [paper](https://arxiv.org/abs/2006.11239)  
    - assumption : gaussian noise, markovian process, $\Sigma_{\theta} = \sigma_t^2 \mathbf{I}$  
    - objective function : variational bound 중 $L_{1:T-1}$ term -> $L_simple$ 을 optimizing 하는 것과 유사
-   - $L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left\| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right\|^2 \right]$
+   - $L_{\text{simple}}(\theta) \coloneqq \mathbb{E}_{t, x_0, \epsilon} \left[ \left|| \epsilon - \epsilon_{\theta} \left( \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t \right) \right||^2 \right]$
 
    - goal : forward process가 given 일 때 reverse process $\mu^{\tilde}_{t}$, $\Sigma^{\tilde}_{t}$ fitting를 $\mu_{\theta}$, $\Sigma_{\theta}$ fitting; 이 때 $\Sigma_{\theta}$ 는 fixed(not training)
    - 해결한 문제 : training 할 때는 $x_0$의 정보를 사용하나 sampling 할 때는 $x_0$의 정보를 사용하지 않는다. $x_t$를 통해 $x_0$를 추정해야 한다. gaussain noise가 iid 이기 때문에 $x_t$와 $\epsilon$ 을 안다면 $x_0$를 추정할 수 있다.
@@ -46,8 +46,8 @@ Diffusion models 논문 요약
    - goal : reverse SDE에서 유도된 $\nabla_x \log p(x)$ 를 효과적으로 score matching 시키는 방법
    - advantage : no adversarial training, no surrogate losses, no sampling from the score network during training
    - Score matching for score estimation : 효과적인 방식으로 $s_{\theta}(x) \sim \nabla_x \log p(x)$ 예측
-      - trace based : $tr(\nabla_x s_{theta}(x))$ 이용; 하지만 high demensional data 일 때 $tr(\nable_x s_{theta}(x))$를 구하는 것은 힘들다
-      - sliced score matching : $tr(\nable_x s_{theta}(x))$ 대신 $v^t \nabla_x s_{\theta}(x) v$ 이용 (v : multivariate standard normal vector); 직접 trace에 접근하지 않아도 되어 efficient
+      - trace based : $tr(\nabla_x s_{theta}(x))$ 이용; 하지만 high demensional data 일 때 $tr(\nabla_x s_{theta}(x))$를 구하는 것은 힘들다
+      - sliced score matching : $tr(\nabla_x s_{theta}(x))$ 대신 $v^t \nabla_x s_{\theta}(x) v$ 이용 (v : multivariate standard normal vector); 직접 trace에 접근하지 않아도 되어 efficient
 
    - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nalba_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta} (x)$를 $\nabla_x \log p(x)$ 대신 사용
 
@@ -65,8 +65,8 @@ Diffusion models 논문 요약
       - 대신 추정해야하는 $s_{\theta} (x)$ 도 더이상 $x$에만 영향을 받지 않고 $\sigma$에 영향을 받게 setting. $s_{\theta} (x, \sigma)$
 
    - denoising score matching : $s_theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
-      - $\arg \min_{\theta} \Sigma_{t=1}^{T} \lambda(\sigma_t) \mathbb{E}_{q_{\sigma_t}} [\|s_{\theta}(x, t) - \nabla \log q_{\sigma_t} (x_t)\|_2^2]$
-      - $\lambda(\sigma_t)$ : coefficient, 논문에서는 $\lambda(\sigma) = \sigma^2$ 이용 (why? variance가 $\sigma^2 I$인 정규분포로 perturbed 했기 때문에 $\|s_{\theta} (x, \sigma)\|_2 \propto 1/{\sigma}$)
+      - $\arg \min_{\theta} \Sigma_{t=1}^{T} \lambda(\sigma_t) \mathbb{E}_{q_{\sigma_t}} [||s_{\theta}(x, t) - \nabla \log q_{\sigma_t} (x_t)||_2^2]$
+      - $\lambda(\sigma_t)$ : coefficient, 논문에서는 $\lambda(\sigma) = \sigma^2$ 이용 (why? variance가 $\sigma^2 I$인 정규분포로 perturbed 했기 때문에 $||s_{\theta} (x, \sigma)||_2 \propto 1/{\sigma}$)
 
    - algorithm <br />
      ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/99cfb858-de57-464c-b165-861616a6170f)
