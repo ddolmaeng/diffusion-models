@@ -16,7 +16,7 @@ Diffusion models 논문 요약
       - learning $\Sigma_{\theta}$
          - $\Sigma_{\theta}$ term 을 training 하지 않았었는데 이를 구하기 위해서 $L_{hybrid}$ 이용 (기존 $L_{simple}$ 에는 $\Sigma_{\theta} 와 관련된 항이 존재 X (L_{simple} 에서 \sigma_t term 을 제외하였음); $L_{hybrid} = L_{simple} + \lambda L_{vlb} \qquad (\lambda = 0.001)$
          - $\Sigma_{\theta}(x_t, t) = \exp(v \log \beta_t + (1 - v) \log \tilde{\beta}_t)$
-           $v$를 fitting, 즉 $Sigma_theta$도 자유도를 가진다.
+           $v$를 fitting, 즉 $\Sigma_\theta$도 자유도를 가진다.
    
       - improving the noise schedule
          - forward process 기준 마지막으로 가면 갈수록 너무 nosie의 비율이 높아 noise를 천천히 추가함
