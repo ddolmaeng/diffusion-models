@@ -84,7 +84,7 @@ Diffusion models 논문 요약
    - DDPM
       - discrete form : $x_i = \sqrt{1 - \beta_i} x_{i-1} + \sqrt{\beta_i} z_{i-1}$
       - continuous form : $dx = - \frac{1}{2} \beta (t) x \mathrm{d}t + \sqrt{\beta (t)} \mathrm{d}w$
-      - \frac {\mathrm{d}\Sigma (t)}{\mathrm{d}t} = \beta (t) (I - \Sigma (t))
+      - $\frac {\mathrm{d}\Sigma (t)}{\mathrm{d}t} = \beta (t) (I - \Sigma (t))$
 
 
 
