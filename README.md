@@ -95,7 +95,20 @@ Diffusion models 논문 요약
       - $\Sigma_{sub-VP}(t) \preccurlyeq \Sigma_{VP}(t)$
       - $p_{0t}(x(t)|x(0)) = \mathcal{N}(x(t);x(0) e^{-\frac{1}{2}\int^t_0 \beta(s) \mathrm{d}s}, [1-e^{-\int^t_0 \beta(s) \mathrm{d}s}]^2 I)$
 
+   - reverse SDE
+      - forward SDE : $dx = f(x,t) dt + G(t) dw$
+      - reverse time SDE : $dx = [f(x,t) - G(t)G(t)^T \nabla_x \log p_t(x)]dt + G(t)d\bar{w}$
+      - discrete form : $x_i = x_{i+1} - f_{i+1}(x_{i+1}) + G_{i+1}G_{i+1}^T s_{\theta^*}(x_{i+1}, i+1) + G_{i+1}z_{i+1}$
 
+   - sampling algorithm
+      ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/faf49f54-0c1a-41c3-92d3-7551cafb14fd)
+      
+      ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/9f85a132-2910-4fc8-a27f-64e05da961be)
+      
+      - corrector : langevin dynamics (langevin MCMC)
+         - langevin dynamics
+            - $x_{i+1} <- x_i + \epsilon (\nalba_x \log p(x))|_{x=x_i} + \sqrt{2\epsilon}z_i, qquad z_i~\mathcal{N}(0,I)$
+            - when $\epsilon \rightarrow 0$ and $T \rightarrow \infty$, then $p(x)$ converge
 
 
 
