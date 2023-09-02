@@ -52,16 +52,16 @@ Diffusion models 논문 요약
    - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nalba_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta} (x)$를 $\nabla_x \log p(x)$ 대신 사용
 
    - Problem (Vanilla Sampling with Langevin dynamics)
-      - under the manifold hypothesis, p_data가 존재하지 않는 x 에서 $s_\theta(x)$가 정의되지 않음
+      - under the manifold hypothesis, $p_{data}$가 존재하지 않는 x 에서 $s_\theta(x)$가 정의되지 않음
       - low data density 영역에서의 부정확
       - mixture data distribution에 대한 분별능력 X
-         - e.g. $p_data = 0.2 \mathcal{N} ((0,0), I)) + 0.8  \mathcal{N} ((1,1), I))$ 라고 하면, 이상적인 경우 20%는 $\mathcal{N} ((0,0), I))$, 그리고 80%는 $\mathcal{N} ((1,1), I))$로 분류하기를 원함; 하지만, 임의의 점에서 시작한다면 거의 50:50으로 분류 (why? $\mathcal{N} ((0,0), I))$ 근방에서는 $(0,0)$ 방향으로 gradient가 끌어당기는 힘이 더 강하고, $\mathcal{N} ((1,1), I))$ 근방에서는 $(1,1)$ 방향으로 gradient가 끌어당기는 힘이 더 강하기 때문에) <br />
+         - e.g. $p_{data} = 0.2 \mathcal{N} ((0,0), I)) + 0.8  \mathcal{N} ((1,1), I))$ 라고 하면, 이상적인 경우 20%는 $\mathcal{N} ((0,0), I))$, 그리고 80%는 $\mathcal{N} ((1,1), I))$로 분류하기를 원함; 하지만, 임의의 점에서 시작한다면 거의 50:50으로 분류 (why? $\mathcal{N} ((0,0), I))$ 근방에서는 $(0,0)$ 방향으로 gradient가 끌어당기는 힘이 더 강하고, $\mathcal{N} ((1,1), I))$ 근방에서는 $(1,1)$ 방향으로 gradient가 끌어당기는 힘이 더 강하기 때문에) <br />
            ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/c5c1866d-8cf8-4332-b75d-67202758a27c)
 
 
    - Solution (perturbed data distribution)
       - $\{\sigma_i\}^{L}_{i=1}$, $\frac{\simga_1}{\sigma_2} = \cdots = \frac{\sigma_{L-1}}{\sigma_L} > 1$ 을 만족하게 sequence 잡은 후
-      - $q_{\sigma}(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) dt$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
+      - $q_{\sigma}(x) = \int p_{\text{data}}(t) \mathcal{N} (x | t, \sigma^2 I) \mathrm{d}t$ 로 각 step 마다 점점 perturbed noise가 작아지게 data distribution을 setting 한다.
       - 대신 추정해야하는 $s_{\theta} (x)$ 도 더이상 $x$에만 영향을 받지 않고 $\sigma$에 영향을 받게 setting. $s_{\theta} (x, \sigma)$
 
    - denoising score matching : $s_\theta(x,t) \sim \nabla \log q_{\sigma_t}(x)$
@@ -74,9 +74,17 @@ Diffusion models 논문 요약
 
 
 7. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
-   - goal : 
-
-
+   - goal : SDE를 이용한 diffusion model 개선
+   - assumption : Stochastic process, Ito process
+   - SMLD
+      - discrete form : $x_i = x_{i-1} + \sqrt{\sigma^{2}_{i} - \sigma^{2}_{i - 1}} z_{i-1}, \qquad i = 1, \cdots, N$, $z_{i-1} \sim \mathcal{N}(0, I)$
+      - continuous form : $dx = \sqrt{\frac{d[\sigma^2 (t)]}{\mathrm{d}t} \Delta t} z(t)$
+      - VE(variance explosion) SDE
+    
+   - DDPM
+      - discrete form : $x_i = \sqrt{1 - \beta_i} x_{i-1} + \sqrt{\beta_i} z_{i-1}$
+      - continuous form : $dx = - \frac{1}{2} \beta (t) x \mathrm{d}t + \sqrt{\beta (t)} \mathrm{d}w$
+      - \frac {\mathrm{d}\Sigma (t)}{\mathrm{d}t} = \beta (t) (I - \Simga (t))
 
 
 
