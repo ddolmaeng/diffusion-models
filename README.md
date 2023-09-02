@@ -80,20 +80,20 @@ Diffusion models 논문 요약
       - discrete form : $x_{i} = x_{i-1} + \sqrt{\sigma^{2}_{i} - \sigma^{2}_{i - 1}} z_{i-1}, \qquad i = 1, ..., N$ , $z_{i-1} \sim \mathcal{N}(0, I)$
       - continuous form : $dx = \sqrt{\frac{d[\sigma^2 (t)]}{\mathrm{d}t} \Delta t} z(t)$
       - VE(variance explosion) SDE
-      - $\mathcal{N}(x(t);x(0), [\sigma^2(t) - \sigma^2(0)] I)$
+      - $p_{0t}(x(t)|x(0)) = \mathcal{N}(x(t);x(0), [\sigma^2(t) - \sigma^2(0)] I)$
     
    - DDPM (VP SDE)
       - discrete form : $x_i = \sqrt{1 - \beta_i} x_{i-1} + \sqrt{\beta_i} z_{i-1}$
       - continuous form : $\mathrm{d}x = - \frac{1}{2} \beta (t) x \mathrm{d}t + \sqrt{\beta (t)} \mathrm{d}w$
       - $\frac {\mathrm{d}\Sigma (t)}{\mathrm{d}t} = \beta (t) (I - \Sigma (t))$
       - $\Sigma(t) = I + e^{\int_{0}^{t} - \beta (s) \mathrm{d}s} (\Sigma(0) - I)$, if $\Sigma (0) = I$, then $\Sigma_{VP}(t)$ always bounded
-      - $\mathcal{N}(x(t);x(0) e^{-\frac{1}{2}\int^t_0 \beta(s) \mathrm{d}s}, [1-e^{-\int^t_0 \beta(s) \mathrm{d}s}]I)$
+      - $p_{0t}(x(t)|x(0)) = \mathcal{N}(x(t);x(0) e^{-\frac{1}{2}\int^t_0 \beta(s) \mathrm{d}s}, [1-e^{-\int^t_0 \beta(s) \mathrm{d}s}]I)$
 
    - sub-VP SDE
       - continuous form : $\mathrm{d}x = - \frac{1}{2} \beta (t) x \mathrm{d}t + \sqrt{\beta (t) (1-e^{-2 \int_{0}^{t} \beta(s) \mathrm{d}s})} \mathrm{d}w$
       - $\Sigma(t) = I + e^{- 2 \int_{0}^{t} \beta (s) \mathrm{d}s} I + e^{- \int_{0}^{t} \beta (s) \mathrm{d}s} (\Sigma(0) - 2I)$
       - $\Sigma_{sub-VP}(t) \preccurlyeq \Sigma_{VP}(t)$
-      - $\mathcal{N}(x(t);x(0) e^{-\frac{1}{2}\int^t_0 \beta(s) \mathrm{d}s}, [1-e^{-\int^t_0 \beta(s) \mathrm{d}s}]^2 I)$
+      - $p_{0t}(x(t)|x(0)) = \mathcal{N}(x(t);x(0) e^{-\frac{1}{2}\int^t_0 \beta(s) \mathrm{d}s}, [1-e^{-\int^t_0 \beta(s) \mathrm{d}s}]^2 I)$
 
 
 
