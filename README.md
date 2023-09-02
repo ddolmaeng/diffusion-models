@@ -77,7 +77,7 @@ Diffusion models 논문 요약
    - goal : SDE를 이용한 diffusion model 개선
    - assumption : Stochastic process, Ito process
    - SMLD
-      - discrete form : $x_i = x_{i-1} + \sqrt{\sigma^{2}_{i} - \sigma^{2}_{i - 1}} z_{i-1}, \qquad i = 1, \cdots, N$, $z_{i-1} \sim \mathcal{N}(0, I)$
+      - discrete form : $x_{i} = x_{i-1} + \sqrt{\sigma^{2}_{i} - \sigma^{2}_{i - 1}} z_{i-1}, \qquad i = 1, ..., N$, $z_{i-1} \sim \mathcal{N}(0, I)$
       - continuous form : $dx = \sqrt{\frac{d[\sigma^2 (t)]}{\mathrm{d}t} \Delta t} z(t)$
       - VE(variance explosion) SDE
     
