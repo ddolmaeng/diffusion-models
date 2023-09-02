@@ -49,7 +49,7 @@ Diffusion models 논문 요약
       - trace based : $tr(\nabla_x s_{theta}(x))$ 이용; 하지만 high demensional data 일 때 $tr(\nabla_x s_{theta}(x))$를 구하는 것은 힘들다
       - sliced score matching : $tr(\nabla_x s_{theta}(x))$ 대신 $v^t \nabla_x s_{\theta}(x) v$ 이용 (v : multivariate standard normal vector); 직접 trace에 접근하지 않아도 되어 efficient
 
-   - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nabla_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta} (x)$를 $\nabla_x \log p(x)$ 대신 사용
+   - Sampling with Langevin dynamics : $\tilde{x}_t = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nabla_x \log p(\tilde{x}_{t-1}) + \sqrt{\epsilon} z_t$; 이 때 $s_{\theta}(x)$를 $\nabla_x \log p(x)$ 대신 사용
 
    - Problem (Vanilla Sampling with Langevin dynamics)
       - under the manifold hypothesis, $p_{data}$가 존재하지 않는 x 에서 $s_\theta(x)$가 정의되지 않음
