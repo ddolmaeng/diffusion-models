@@ -107,7 +107,7 @@ Diffusion models 논문 요약
       
       - corrector : langevin dynamics (langevin MCMC)
          - langevin dynamics
-            - $x_{i+1} <- x_i + \epsilon (\nalba_x \log p(x))|_{x=x_i} + \sqrt{2\epsilon}z_i, qquad z_i~\mathcal{N}(0,I)$
+            - $x_{i+1} <- x_i + \epsilon (\nabla_x \log p(x))|_{x=x_i} + \sqrt{2\epsilon}z_i, qquad z_i~\mathcal{N}(0,I)$
             - when $\epsilon \rightarrow 0$ and $T \rightarrow \infty$, then $p(x)$ converge
 
 
