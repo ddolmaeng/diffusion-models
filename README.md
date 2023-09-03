@@ -73,7 +73,7 @@ Diffusion models 논문 요약
 
 
 
-7. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
+5. **Score-Based Generative Modeling through Stochastic Differential Equations**   [paper](https://arxiv.org/abs/2011.13456)
    - goal : SDE를 이용한 diffusion model 개선
    - assumption : Stochastic process, Ito process
    - SMLD (VE SDE)
@@ -109,6 +109,18 @@ Diffusion models 논문 요약
          - langevin dynamics
             - $x_{i+1} <- x_i + \epsilon (\nabla_x \log p(x))|_{x=x_i} + \sqrt{2\epsilon}z_i, qquad z_i~\mathcal{N}(0,I)$
             - when $\epsilon \rightarrow 0$ and $T \rightarrow \infty$, then $p(x)$ converge
+
+
+6. **Diffusion Models Beat GANs on Image Synthesis**   [paper](https://arxiv.org/abs/2105.05233)
+   - goal : architecture tuning과 classifier guidance를 통한 improving fidelity
+   - idea
+      - 
+
+
+
+
+
+7. **Classifier-Free Diffusion Guidance**   [paper](https://arxiv.org/abs/2207.12598)
 
 
 
