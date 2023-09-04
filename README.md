@@ -113,14 +113,21 @@ Diffusion models 논문 요약
 
 6. **Diffusion Models Beat GANs on Image Synthesis**   [paper](https://arxiv.org/abs/2105.05233)
    - goal : architecture tuning과 classifier guidance를 통한 improving fidelity
-   - idea
-      - 
+   - assumption : conditional markovian noising process ($p(x_{t+1}|x_t,y) = p(x_{t+1}|x_t)$, $p(x_{1:T}|x_0, y) = \Pi_{t=1}^{T} p(x_t|x_{t-1}, y)$
+   - lemma : $p(y|x_t,x_{t+1}) = p(y|x_t)$
+      - pf : $p(y|x_t, x_{t+1}) = \frac{p(x_t, x_{t+1}, y)}{p(x_t, x_{t+1})} = \frac{p(x_{t+1}|x_t, y)p(x_t, y)}{p(x_{t+1}|x_t) p(x_t)} = p(y|x_t)$
 
+   - classifier guidance
+      - $p(x_t|x_{t+1}, y) = \frac{p(x_t,x_{t+1},y}{p(x_{t+1}, y)} = \frac{p(y|x_t,x_{t+1})p(x_t|x_{t+1})p(x_{t+1})}{p(x_{t+1},y)} = \frac{p(y|x_t)p(x_t|x_{t+1})p(x_{t+1})}{p(x_{t+1},y)}$
+      - $\nabla_{x_t} p(x_t|x_{t+1}, y) = \nabla_{x_t} p(y|x_t) + \nabla_{x_t} p(x_t|x_{t+1})$
+      - clssifier : $\nabla_{x_t} p(y|x_t)$
 
+   - algorithm
+      ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/7aa3c31a-38a7-4cdc-b169-999125c45bda)
 
+   - add hyperparameter $\gamma$ : $\nabla_{x_t} p(x_t|x_{t+1}, y) = \nabla_{x_t} p(y|x_t) + \gamma \nabla_{x_t} p(x_t|x_{t+1})$
 
 
 7. **Classifier-Free Diffusion Guidance**   [paper](https://arxiv.org/abs/2207.12598)
-
-
-
+   - goal : classifier 없이 classifer guidance 만큼의 fidelity 보장
+   - why : classifier
