@@ -120,7 +120,7 @@ Diffusion models 논문 요약
    - classifier guidance
       - $p(x_t|x_{t+1}, y) = \frac{p(x_t,x_{t+1},y}{p(x_{t+1}, y)} = \frac{p(y|x_t,x_{t+1})p(x_t|x_{t+1})p(x_{t+1})}{p(x_{t+1},y)} = \frac{p(y|x_t)p(x_t|x_{t+1})p(x_{t+1})}{p(x_{t+1},y)}$
       - $\nabla_{x_t} p(x_t|x_{t+1}, y) = \nabla_{x_t} p(y|x_t) + \nabla_{x_t} p(x_t|x_{t+1})$
-      - clssifier : $\nabla_{x_t} p(y|x_t)$
+      - classifier : $\nabla_{x_t} p(y|x_t)$
 
    - algorithm
       ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/7aa3c31a-38a7-4cdc-b169-999125c45bda)
@@ -130,4 +130,15 @@ Diffusion models 논문 요약
 
 7. **Classifier-Free Diffusion Guidance**   [paper](https://arxiv.org/abs/2207.12598)
    - goal : classifier 없이 classifer guidance 만큼의 fidelity 보장
-   - why : classifier
+   - why : classifier가 이미지 품질을 높이는 것이 아닌 단순히 adversarial training을 통해 score만 올리는 건지에 대한 의문
+   - $\nabla_{x_t} p(y|x_t) = \nabla_{x_t} p(x_t|x_{t+1}, y) - \nabla_{x_t} p(x_t|x_{t+1})$ 이용
+   - $\nabla_{x_t} p(x_t|x_{t+1}, y) = \nabla_{x_t} p(y|x_t) + \gamma (\nabla_{x_t} p(x_t|x_{t+1}, y) - \nabla_{x_t} p(x_t|x_{t+1})) = (1+\gamma)\nabla_{x_t} p(y|x_t) - \gamma\nabla_{x_t} p(x_t|x_{t+1})$
+
+   - algorithm
+     ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/2515856f-acaf-4614-95a6-bb670a045223)
+
+     ![image](https://github.com/ddolmaeng/diffusion-paper-summary/assets/112860653/3fbe4e5f-ed68-47dd-80f3-0eb808b9dc3a)
+
+   - disadvantage : sampling speed (classifier의 크기가 classifier free 보다 작기 때문에)
+
+
